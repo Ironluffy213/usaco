@@ -35,5 +35,18 @@ public class ride {
 	static String solve() {
 		int n1 = convert(input[0]);
 		int n2 = convert(input[1]);
+		if(n1 == n2) {
+			return "GO";
+		}else {
+			return "STAY";
+		}
+	}
+	static int convert(String s) {
+		int val = s.charAt(0)-64;
+		for(int i = 1; i < s.length(); i++) {
+			int n = s.charAt(i) - 64;
+			val = val * n;
+		}
+		return val%47;
 	}
 }
