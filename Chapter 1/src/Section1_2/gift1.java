@@ -18,7 +18,7 @@ public class gift1 {
 			out = new PrintWriter(new File("gift1.out"));
 			
 			init();
-			out.println(solve());
+			out.print(solve());
 			
 			in.close();
 			out.close();
@@ -28,6 +28,9 @@ public class gift1 {
 		}
 	}
 	static void init() {
+		n = in.nextInt();
+		name = new ArrayList <String>();
+		money = new ArrayList <Integer>();
 		for(int i = 0; i < n; i++) {
 			name.add(in.next());
 			money.add(0);
@@ -39,19 +42,27 @@ public class gift1 {
 			String givr = in.next();
 			int mon = in.nextInt();
 			int ppl = in.nextInt();
+			if(ppl == 0) {
+				continue;
+			}
 			int gm = mon/ppl;
 			int rem = mon%ppl;
+			
 			int index = name.indexOf(givr);
-			money.set(money.get(index), money.get(index)-mon+rem);
+			money.set(index, money.get(index)-mon+rem);
+			
 			for(int j = 0; j<ppl; j++) {
 				String rec = in.next();
-				index = name.indexOf(rec);
-				money.set(money.get(index), money.get(index)+gm);
+				 index = name.indexOf(rec);
+				money.set(index, money.get(index)+gm);
+				
 			}
 			
-			for(int j = 0; j<n; j++) {
-				ans += name.get(j) + " " + money.get(j) + "\n";
-			}
+			
+			
+		}
+		for(int j = 0; j<n; j++) {
+			ans += name.get(j) + " " + money.get(j) + "\n";
 		}
 		return ans;
 	}
