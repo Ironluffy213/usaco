@@ -28,18 +28,9 @@ public class paint {
 		}
 	}
 	public static void solve() {
-		int max = len[0];
-		for(int i = 1; i < len.length; i++) {
-			if(max < len[i]) {
-				max = len[i];
-			}
-		}
-		int min = len[0];
-		for(int i = 1; i < len.length; i++) {
-			if(min > len[i]) {
-				min = len[i];
-			}
-		}
-		out.println(max-min);
+		int f = len[1] - len[0];
+		int s = len[3] - len[2];
+		int r = len[3] - len[0];
+		out.println(f+s-r);
 	}
 }
