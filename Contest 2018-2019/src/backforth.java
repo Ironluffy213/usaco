@@ -22,8 +22,8 @@ public class backforth {
 	}
 	public static void init() {
 		try {
-			in = new Scanner(new File("blist.in"));
-			out = new PrintWriter(new File("blist.out"));
+			in = new Scanner(new File("backforth.in"));
+			out = new PrintWriter(new File("backforth.out"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,7 @@ public class backforth {
 		for(int i = 0; i < pos.length; i++) {
 			ans += pos[i];
 		}
-		System.out.println(ans);
+		out.println(ans);
 	}
 	public static ArrayList<Integer> copy(ArrayList<Integer> blist){
 		ArrayList<Integer> newb = new ArrayList<Integer>();

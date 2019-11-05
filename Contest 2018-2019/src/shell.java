@@ -1,11 +1,12 @@
 import java.util.*;
 import java.io.*;
 
-public class shells {
+public class shell {
 	static int[] cnt;
 	static int[] pos;
 	static Scanner in;
 	static PrintWriter out;
+	static int n;
 	public static void main(String[] args) {
 		try {
 			init();
@@ -19,8 +20,8 @@ public class shells {
 	}
 	public static void init() {
 		try {
-			in = new Scanner(new File("shells.in"));
-			out = new PrintWriter(new File("shells.out"));
+			in = new Scanner(new File("shell.in"));
+			out = new PrintWriter(new File("shell.out"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -29,14 +30,14 @@ public class shells {
 		for(int i = 0; i < 3; i++) {
 			pos[i] = i+1;
 		}
+		n = in.nextInt();
 	}
 	public static void solve() {
-		int n = in.nextInt();
 		for(int i = 0; i < n; i++) {
 			int fir = in.nextInt();
 			int sec = in.nextInt();
 			int temp = pos[fir-1];
-			pos[fir-1] = sec;
+			pos[fir-1] = pos[sec-1];
 			pos[sec-1] = temp;
 			int add = in.nextInt();
 			cnt[add-1] += 1;
