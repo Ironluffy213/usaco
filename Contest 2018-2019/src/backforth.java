@@ -51,7 +51,7 @@ public class backforth {
 			newb.add(blist.get(i));
 		}
 		return newb;
-	}
+	}   
 	public static void tues(int amnt, ArrayList<Integer> b1, ArrayList<Integer> b2){
 		for(int i = 0; i < b1.size(); i++) {
 			int x = b1.get(i);
