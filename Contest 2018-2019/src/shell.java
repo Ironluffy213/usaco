@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 
 public class shell {
-	static int[] cnt;
-	static int[] pos;
-	static Scanner in;
+	static int[] shell, fir, sec, ge;
 	static PrintWriter out;
-	static int n;
+	static Scanner in;
+	static int max, n;
+	
 	public static void main(String[] args) {
 		try {
 			init();
@@ -25,29 +25,37 @@ public class shell {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		cnt = new int[3];
-		pos = new int[3];
-		for(int i = 0; i < 3; i++) {
-			pos[i] = i+1;
-		}
 		n = in.nextInt();
+		fir = new int[n];
+		sec = new int[n];
+		ge = new int[n];
+		shell = new int[3];
+		for(int i = 0; i < n; i++) {
+			fir[i] = in.nextInt()-1;
+			sec[i] = in.nextInt()-1;
+			ge[i] = in.nextInt()-1;
+		}
+		max = 0;
+		//System.out.println(Arrays.toString(ge));
 	}
 	public static void solve() {
-		for(int i = 0; i < n; i++) {
-			int fir = in.nextInt();
-			int sec = in.nextInt();
-			int temp = pos[fir-1];
-			pos[fir-1] = pos[sec-1];
-			pos[sec-1] = temp;
-			int add = in.nextInt();
-			cnt[add-1] += 1;
+		for(int i = 0; i < 3; i++) {
+			shell = new int[3];
+			shell[i] = 1;
+			max= Math.max(max, score());
 		}
-		int max = cnt[0];
-		for(int i = 1; i < 3; i++) {
-			if(max < cnt[i]) {
-				max = cnt[i];
+		out.println(max);
+	}
+	public static int score() {
+		int score = 0;
+		for(int i = 0; i < n; i++) {
+			int temp = shell[sec[i]];
+			shell[sec[i]] = shell[fir[i]];
+			shell[fir[i]] = temp;
+			if(shell[ge[i]] == 1) {
+				score++;
 			}
 		}
-		out.println(max-1);
+		return score;
 	}
 }
