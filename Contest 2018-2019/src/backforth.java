@@ -4,9 +4,8 @@ import java.io.*;
 public class backforth {
 	public static Scanner in;
 	public static PrintWriter out;
-	public static ArrayList<Integer> b1;
-	public static ArrayList<Integer> b2;
-	public static int[] pos ;
+	public static int b1[], b2[], a1[], a2[], ans;
+	public static Set<Integer> pos;
 	
 	public static void main(String [] args) {
 		try {
@@ -27,72 +26,40 @@ public class backforth {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		pos = new int[2000];
-		b1 = new ArrayList<Integer>();
-		b2 = new ArrayList<Integer>();
+		b1 = new int[10];
+		b2 = new int[10];
+		a1 = new int[10];
+		a2 = new int[10];
 		for(int i = 0; i < 10; i++) {
-			b1.add(in.nextInt());
+			a1[i] = in.nextInt();
+			b1[i] = a1[i];
 		}
 		for(int i = 0; i < 10; i++) {
-			b2.add(in.nextInt());
+			a2[i] = in.nextInt();
+			b2[i] = a2[i];
 		}
+		pos = new HashSet <Integer>();
+		//System.out.println(Arrays.toString(a2));
 	}
 	public static void solve() {
-		tues(1000, b1, b2);
-		int ans = 0;
-		for(int i = 0; i < pos.length; i++) {
-			ans += pos[i];
+		int milk = 0;
+		for(int i = 0;i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				milk = b2[j] - b1[i];
+				int temp = b1[i];
+				b1[i] = b2[j];
+				b2[j] = temp;
+				for(int k = 0; k < 10; k++) {
+					for(int m = 0; m < 10; m++) {
+						ans = milk + b2[m] - b1[k];
+						pos.add(ans);
+					}
+				}
+				b1 = a1.clone();
+				b2 = a2.clone();
+			}
 		}
-		out.println(ans);
-	}
-	public static ArrayList<Integer> copy(ArrayList<Integer> blist){
-		ArrayList<Integer> newb = new ArrayList<Integer>();
-		for(int i = 0; i < blist.size(); i++) {
-			newb.add(blist.get(i));
-		}
-		return newb;
-	}   
-	public static void tues(int amnt, ArrayList<Integer> b1, ArrayList<Integer> b2){
-		for(int i = 0; i < b1.size(); i++) {
-			int x = b1.get(i);
-			ArrayList<Integer> newb1 = copy(b1);
-			newb1.remove(i);
-			newb1.add(x);
-			ArrayList<Integer> newb2 = copy(b2);
-			newb2.remove(i);
-			newb2.add(x);
-			wed(amnt-x, newb1, newb2);
-		}
-	}
-	public static void wed(int amnt, ArrayList<Integer> b1, ArrayList<Integer> b2){
-		for(int i = 0; i < b2.size(); i++) {
-			int x = b2.get(i);
-			ArrayList<Integer> newb1 = copy(b1);
-			newb1.remove(i);
-			newb1.add(x);
-			ArrayList<Integer> newb2 = copy(b2);
-			newb2.remove(i);
-			newb2.add(x);
-			thurs(amnt+x, newb1, newb2);
-		}
-	}
-	public static void thurs(int amnt, ArrayList<Integer> b1, ArrayList<Integer> b2){
-		for(int i = 0; i < b1.size(); i++) {
-			int x = b1.get(i);
-			ArrayList<Integer> newb1 = copy(b1);
-			newb1.remove(i);
-			newb1.add(x);
-			ArrayList<Integer> newb2 = copy(b2);
-			newb2.remove(i);
-			newb2.add(x);
-			fri(amnt-x, newb1, newb2);
-		}
-	}
-	public static void fri(int amnt, ArrayList<Integer> b1, ArrayList<Integer> b2){
-		for(int i = 0; i < b2.size(); i++) {
-			int x = b2.get(i);
-			pos[amnt+x] = 1;
-		}
+		out.println(pos.size());
 	}
 }
 
