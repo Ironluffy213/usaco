@@ -4,8 +4,8 @@ import java.io.*;
 public class guess {
 	static Scanner in;
 	static PrintWriter out;
-	static Map<String,Integer> bank  = new HashMap<String,Integer>();
-	static int max;
+	static int n;
+	static ArrayList<String> [] des;
 	public static void main(String[] args) {
 		try {
 			init();
@@ -24,26 +24,32 @@ public class guess {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		int num = in.nextInt();
-		for(int i = 0; i < num-1; i++) {
-			String[] temp = in.nextLine().split(" ");
-			for(int j = 2; j < temp.length; j++) {
-				if(bank.containsKey(temp[j])) {
-					bank.put(temp[j], bank.get(temp[j])+1);
-				}else {
-					bank.put(temp[j], 1);
-				}
-			}
-		}
+		 n = in.nextInt();
+		 des = new ArrayList[n];
+		 for(int i = 0; i < n; i++) {
+			 in.next();
+			 des[i] = new ArrayList<String>();
+			 int temp = in.nextInt();
+			 for(int j = 0; j < temp; j++) {
+				 des[i].add(in.next());
+			 }
+		 }
+		 //System.out.println(Arrays.toString(des));
 	}
 	public static void solve() {
-		max = 0;
-		for(String s: bank.keySet()) {
-			int tem = bank.get(s);
-			if(max < tem) {
-				max = tem;
+		int max = 0;
+		for(int i = 0; i < n-1; i++) {
+			for(int j = i+1; j < n; j++) {
+				int same = 0;
+				for(String p: des[i]) {
+					if(des[j].contains(p)) {
+						same ++;
+					}
+				}			
+				//System.out.println(same);
+				max = Math.max(max, same);	
 			}
 		}
-		out.print(max);
+		out.println(max+1);
 	}
 }
